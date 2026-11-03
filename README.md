@@ -18,3 +18,7 @@ Serve over HTTPS. Open the exact Pages project URL in Chrome. After the first su
 
 ## Important
 The app does not perform raster analysis, laboratory validation, hydrological modelling, or two-way cloud merge. Use QGIS/GEE and validated scientific workflows for analysis. Review the cloud setup and security notes before real field deployment.
+
+
+## Mobile GitHub upload
+This package is intentionally flat for Android browser uploads. Upload all eight files into the repository root; do not create subfolders.
