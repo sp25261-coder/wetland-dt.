@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#123b32">
+<meta name="description" content="WETLAND-DT Ramsar and Wetland Digital Twin Platform">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<title>WETLAND-DT</title>
+<style>
+:root{--bg:#f3f7f5;--panel:#fff;--ink:#16342d;--muted:#61756e;--green:#176b52;--line:#dce7e1;--soft:#e7f2ed}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{background:linear-gradient(135deg,#123b32,#1c7257);color:white;padding:22px 18px 18px;position:sticky;top:0;z-index:3}
+.brand{font-size:25px;font-weight:800;letter-spacing:.4px}.sub{font-size:12px;opacity:.85;margin-top:3px}
+main{max-width:760px;margin:auto;padding:14px 14px 90px}
+nav{display:flex;gap:8px;overflow:auto;padding:12px 0;position:sticky;top:83px;background:var(--bg);z-index:2}
+nav button{white-space:nowrap;border:1px solid var(--line);background:white;color:var(--ink);border-radius:22px;padding:9px 13px;font-weight:650}
+nav button.active{background:var(--green);color:white;border-color:var(--green)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:15px;margin:10px 0;box-shadow:0 2px 8px #153b2b0b}
+h2{font-size:19px;margin:5px 0 12px}h3{font-size:15px;margin:0 0 8px}
+p{line-height:1.5;color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.metric{background:var(--soft);border-radius:12px;padding:12px}.metric b{display:block;font-size:21px}.metric span{font-size:12px;color:var(--muted)}
+label{display:block;font-size:13px;font-weight:650;margin:10px 0 5px}
+input,select,textarea{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:white;color:var(--ink);font:inherit}
+button.primary{background:var(--green);color:white;border:0;border-radius:11px;padding:12px 15px;font-weight:700;width:100%;margin-top:12px}
+button.secondary{background:var(--soft);color:var(--green);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-weight:650}
+.item{padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}.item:last-child{border:0}
+small{color:var(--muted)}.hidden{display:none!important}.notice{background:#fff7df;border:1px solid #f0dfa7;padding:12px;border-radius:12px;font-size:13px;color:#6a541b}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
+@media(min-width:650px){main{padding-left:22px;padding-right:22px}.grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<header><div class="brand">WETLAND-DT</div><div class="sub">Ramsar & Wetland Digital Twin Platform · Mobile v1.0</div></header>
+<main>
+<nav id="nav">
+<button class="active" data-page="home">Overview</button>
+<button data-page="sites">Wetlands</button>
+<button data-page="upload">Data Upload</button>
+<button data-page="records">My Data</button>
+<button data-page="about">About</button>
+</nav>
+
+<section id="home" class="page">
+<div class="card">
+<h2>Digital Twin Workspace</h2>
+<p>Register multiple Ramsar and non-Ramsar wetlands. Each site is identified separately. This mobile prototype stores site records locally on this device.</p>
+<div class="grid">
+<div class="metric"><b id="siteCount">0</b><span>Registered wetlands</span></div>
+<div class="metric"><b id="fileCount">0</b><span>Uploaded file records</span></div>
+<div class="metric"><b>Local</b><span>Storage mode</span></div>
+<div class="metric"><b>v1.0</b><span>App version</span></div>
+</div></div>
+<div class="card"><h3>Platform modules</h3>
+<div class="item">01 · Wetland site registry</div><div class="item">02 · GIS and remote sensing data catalogue</div><div class="item">03 · Water-quality records</div><div class="item">04 · Hydrology and climate data</div><div class="item">05 · Biodiversity and habitat records</div><div class="item">06 · Future modelling and decision support</div>
+</div>
+<div class="notice">This is an initial mobile data-management prototype. It does not yet calculate validated hydrological or hydrochemical predictions.</div>
+</section>
+
+<section id="sites" class="page hidden">
+<div class="card"><h2>Register a wetland</h2>
+<label>Unique site ID *</label><input id="sid" placeholder="e.g. KOPRA">
+<label>Wetland name *</label><input id="sname" placeholder="e.g. Kopra Ramsar Wetland">
+<label>Wetland type</label><select id="stype"><option>Reservoir</option><option>Natural lake</option><option>Riverine wetland</option><option>Marsh</option><option>Floodplain</option><option>Mangrove</option><option>Peatland</option><option>Other</option></select>
+<label>Designation</label><select id="designation"><option>Ramsar Site</option><option>Other protected wetland</option><option>Non-Ramsar wetland</option><option>Proposed Ramsar Site</option><option>Unknown</option></select>
+<label>State</label><input id="state" placeholder="State">
+<label>District</label><input id="district" placeholder="District">
+<label>Area (hectares)</label><input id="area" type="number" step="any" placeholder="e.g. 210">
+<button class="primary" id="addSite">Create wetland record</button>
+</div>
+<div class="card"><h3>Registered sites</h3><div id="siteList"><small>No sites registered yet.</small></div></div>
+</section>
+
+<section id="upload" class="page hidden">
+<div class="card"><h2>Upload data records</h2>
+<label>Select wetland</label><select id="uploadSite"></select>
+<label>Data category</label><select id="category"><option>GIS</option><option>Remote sensing</option><option>Water quality report</option><option>Water quality structured data</option><option>Hydrology</option><option>Biodiversity</option><option>Sediment</option><option>Climate</option><option>Other report</option></select>
+<label>Select files</label><input id="files" type="file" multiple>
+<p>Mobile browser storage has limits. Large GIS datasets should be transferred to the desktop project. This mobile prototype records selected file names and metadata; it does not yet provide full GIS file processing.</p>
+<button class="primary" id="saveFiles">Save file records</button>
+</div>
+</section>
+
+<section id="records" class="page hidden">
+<div class="card"><h2>Stored records</h2><div id="fileList"><small>No files recorded.</small></div></div>
+<div class="card"><h3>Backup</h3><p>Export your site registry and file catalogue as JSON. Keep a copy outside this device.</p><button class="secondary" id="exportBtn">Export backup JSON</button></div>
+</section>
+
+<section id="about" class="page hidden">
+<div class="card"><h2>About WETLAND-DT</h2>
+<p>A multi-site platform concept for Ramsar and other wetlands, designed for GIS, hydrology, hydrochemistry, biodiversity monitoring and conservation decision support.</p>
+<p><b>Current version:</b> Mobile PWA prototype v1.0</p>
+<p><b>Offline:</b> Core screens and locally stored records work after first successful load when hosted over HTTPS.</p>
+<p><b>Scientific integrity:</b> Do not treat uploaded file names as analysed data. CRS, units, dates and measurements must be checked before modelling.</p>
+</div>
+</section>
+<footer>WETLAND-DT · Ramsar & Wetland Digital Twin Platform</footer>
+</main>
+<script>
+const KEY='wetland_dt_mobile_v1';
+let state=JSON.parse(localStorage.getItem(KEY)||'{"sites":[],"files":[]}');
+function persist(){localStorage.setItem(KEY,JSON.stringify(state));render();}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function render(){
+ document.getElementById('siteCount').textContent=state.sites.length;
+ document.getElementById('fileCount').textContent=state.files.length;
+ const sl=document.getElementById('siteList');
+ sl.innerHTML=state.sites.length?state.sites.map(s=>`<div class="item"><b>${esc(s.name)}</b><br><small>${esc(s.id)} · ${esc(s.designation)} · ${esc(s.district)}, ${esc(s.state)}</small></div>`).join(''):'<small>No sites registered yet.</small>';
+ const sel=document.getElementById('uploadSite');
+ const old=sel.value;
+ sel.innerHTML=state.sites.map(s=>`<option value="${esc(s.id)}">${esc(s.name)} (${esc(s.id)})</option>`).join('');
+ if(state.sites.some(s=>s.id===old))sel.value=old;
+ document.getElementById('fileList').innerHTML=state.files.length?state.files.map(f=>`<div class="item"><b>${esc(f.name)}</b><br><small>${esc(f.site)} · ${esc(f.category)} · ${esc(f.date)}</small></div>`).join(''):'<small>No files recorded.</small>';
+}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>{
+ document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x===b));
+ document.querySelectorAll('.page').forEach(x=>x.classList.toggle('hidden',x.id!==b.dataset.page));
+}));
+document.getElementById('addSite').onclick=()=>{
+ const id=document.getElementById('sid').value.trim().toUpperCase();
+ const name=document.getElementById('sname').value.trim();
+ if(!id||!name){alert('Site ID and wetland name are required.');return;}
+ if(state.sites.some(s=>s.id===id)){alert('This Site ID already exists.');return;}
+ state.sites.push({id,name,type:document.getElementById('stype').value,designation:document.getElementById('designation').value,state:document.getElementById('state').value,district:document.getElementById('district').value,area:document.getElementById('area').value});
+ ['sid','sname','state','district','area'].forEach(x=>document.getElementById(x).value='');
+ persist();alert('Wetland record created on this device.');
+};
+document.getElementById('saveFiles').onclick=()=>{
+ const site=document.getElementById('uploadSite').value;
+ const chosen=[...document.getElementById('files').files];
+ if(!site){alert('Register a wetland first.');return;}
+ if(!chosen.length){alert('Select at least one file.');return;}
+ chosen.forEach(f=>state.files.push({site,category:document.getElementById('category').value,name:f.name,size:f.size,date:new Date().toISOString().slice(0,10)}));
+ document.getElementById('files').value='';persist();
+ alert('File metadata saved. The file contents are not uploaded in this prototype; transfer originals to the desktop data workspace.');
+};
+document.getElementById('exportBtn').onclick=()=>{
+ const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+ const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='WETLAND_DT_mobile_backup.json';a.click();URL.revokeObjectURL(a.href);
+};
+render();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
+</script>
+</body></html>

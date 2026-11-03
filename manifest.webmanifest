@@ -1,0 +1,15 @@
+{
+  "name": "WETLAND-DT Ramsar & Wetland Digital Twin",
+  "short_name": "WETLAND-DT",
+  "description": "Multi-site Ramsar and wetland data workspace",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f3f7f5",
+  "theme_color": "#123b32",
+  "icons": [
+    {"src":"icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any"}
+  ]
+}
