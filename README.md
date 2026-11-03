@@ -1,24 +1,20 @@
-# WETLAND-DT v2.0
+# WETLAND-DT v2.1.0 — Data Recovery & Registry Fix
 
-Offline-first, installable Progressive Web App for wetland site registry, GIS layer catalogue/GeoJSON preview, field water-quality observations, biodiversity records, JSON/CSV export and optional Supabase cloud upload.
+This is a mobile-first, offline-capable Progressive Web App for wetland registry, GIS layer metadata/GeoJSON preview, water-quality observations, biodiversity records, JSON/CSV backup and optional Supabase upload.
 
-## Deploy to GitHub Pages
-Upload the **contents** of this folder (not the enclosing folder) to the repository root, preserving `icons/`, `supabase/`, and `docs/`. Commit to `main`. In Settings → Pages choose Deploy from a branch → `main` → `/ (root)`. Use the project Pages URL ending in the repository path.
+## Deploy
+Upload the contents of this ZIP to the GitHub repository root and commit to `main`. Replace files with matching names. Keep all files at repository root in this flat-upload package.
 
-## Android installation
-Serve over HTTPS. Open the exact Pages project URL in Chrome. After the first successful load and service-worker registration, use Chrome menu → Install app (or Add to Home screen). If Install is unavailable, refresh once online, clear the old site data/service worker for the previous v1 deployment, and retry. The app may still be added as a shortcut; that is not the same as a native APK.
+## Data safety and recovery
+- Existing browser records are not automatically cleared or overwritten.
+- Registry includes a Refresh saved records control.
+- Import backup JSON merges records by record ID; existing matching IDs are left unchanged. It does not replace or clear the current database.
+- Existing duplicate Site Codes from legacy backups are preserved and flagged for manual review. New saves reject a Site Code already used by another record.
+- Edit details updates the selected site's record while retaining its ID and creation timestamp.
+- Export JSON before major changes. Keep a copy outside the device.
 
-## Modules
-- Wetland registry with coordinates and designation
-- GIS layer metadata and GeoJSON preview on an online Leaflet/OpenStreetMap basemap
-- Water chemistry field records (units shown per parameter)
-- Biodiversity observations
-- Local-first storage and JSON/CSV export
-- Optional Supabase Auth + RLS-protected record upload (see `docs/CLOUD_SETUP.md`)
+## Android
+Serve from HTTPS (GitHub Pages). Open the project Pages URL in Chrome, load once online, then use Chrome menu → Install app / Add to Home screen. A shortcut is not a native APK. Native APK/AAB requires a separate Android build and signing process.
 
-## Important
-The app does not perform raster analysis, laboratory validation, hydrological modelling, or two-way cloud merge. Use QGIS/GEE and validated scientific workflows for analysis. Review the cloud setup and security notes before real field deployment.
-
-
-## Mobile GitHub upload
-This package is intentionally flat for Android browser uploads. Upload all eight files into the repository root; do not create subfolders.
+## Scientific and cloud limitations
+GIS raster processing (NDVI/NDWI, DEM, slope, LULC), laboratory QA/QC, hydrological modelling and validated ecological predictions are not performed by this PWA. Supabase is optional and requires a user-owned project, SQL schema setup and credentials. Current cloud sync is upload-only; it is not two-way synchronization. Do not expose service-role keys.

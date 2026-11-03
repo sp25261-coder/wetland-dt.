@@ -1,8 +1,8 @@
 {
   "id": "./",
-  "name": "WETLAND-DT v2.0 \u2014 Ramsar & Wetland Digital Twin",
+  "name": "WETLAND-DT v2.1 \u2014 Ramsar & Wetland Digital Twin",
   "short_name": "WETLAND-DT",
-  "description": "GIS, water quality, biodiversity and cloud-enabled wetland monitoring platform.",
+  "description": "Wetland registry, GIS catalogue, hydrochemistry, biodiversity observations and backup recovery.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
